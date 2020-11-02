@@ -11,8 +11,8 @@ cd /home/ubuntu
 sudo apt-get update
 sudo apt-get install -y build-essential wget libssl-dev
 
-# Copy the SSH keys 
-sudo cp /home/ubuntu/cloud-automation/files/authorized_keys/vpn_authorized_keys_admin /home/ubuntu/.ssh/authorized_keys
+# Copy the SSH keys
+# sudo cp /home/ubuntu/cloud-automation/files/authorized_keys/vpn_authorized_keys_admin /home/ubuntu/.ssh/authorized_keys
 ## Logging set-up
 
 #Getting the account details
@@ -83,7 +83,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=US/ST=IL/L=Chicago
 cat /root/cert.key /root/cert.pem > /root/server.pem
 fi
 #else
-#scp -o StrictHostKeyChecking=no -r ubuntu@10.128.1.11:/home/ubuntu/main/cert.key /root/ 
+#scp -o StrictHostKeyChecking=no -r ubuntu@10.128.1.11:/home/ubuntu/main/cert.key /root/
 #scp -o StrictHostKeyChecking=no -r ubuntu@10.128.1.11:/home/ubuntu/main/cert.pem /root/
 #scp -o StrictHostKeyChecking=no -r ubuntu@10.128.1.11:/home/ubuntu/main/server.pem /root/
 #scp -o StrictHostKeyChecking=no -r ubuntu@10.128.1.11:/home/ubuntu/main/*.csv /root/

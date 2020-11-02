@@ -16,8 +16,8 @@ VARS_PATH="$EASYRSA_PATH/vars"
     COUNTRY="US"
     STATE="IL"
     CITY="Chicago"
-    ORG="CDIS" 
-    EMAIL='support\@datacommons.io'
+    ORG="OnePicks"
+    EMAIL='support\@theonepicks.net'
     KEY_EXPIRE=365
 
 
@@ -28,7 +28,7 @@ PROTO=tcp
 
 print_help() {
     echo "Welcome."
-    echo "USAGE 1 : $0 " 
+    echo "USAGE 1 : $0 "
     echo "        : This will run the script and prompt for FQDN and a OU Name"
     echo "USAGE 2 : export FQDN=foo.bar.tld; export cloud="XDC"; export server_pem='/root/server.pem'; $0"
     echo "        : This will not prompt for any input"
@@ -85,14 +85,14 @@ parse_inputs() {
         VM_SUBNET_MASK=$( sipcalc $VM_SUBNET | perl -ne 'm|Network mask\s+-\s+(\S+)| && print "$1"' )
         VM_SUBNET_MASK_BITS=$( sipcalc $VM_SUBNET | perl -ne 'm|Network mask \(bits\)\s+-\s+(\S+)| && print "$1"' )
     fi
-        
+
 
 
 
 }
 
 install_pkgs() {
-    apt-get update; 
+    apt-get update;
     apt-get -y install openvpn bridge-utils libssl-dev openssl zlib1g-dev easy-rsa haveged zip mutt sipcalc python-dev
     useradd  --shell /bin/nologin --system openvpn
 }
@@ -103,7 +103,7 @@ install_custom_scripts() {
 
     #pull our openvpn scripts
     #git clone git@github.com:LabAdvComp/openvpn_management_scripts.git
-    sudo cp -r /root/openvpn_management_scripts /etc/openvpn/ 
+    sudo cp -r /root/openvpn_management_scripts /etc/openvpn/
     ln -sfn openvpn_management_scripts bin
     cd  $BIN_PATH
     virtualenv .venv
@@ -162,7 +162,7 @@ build_PKI() {
     openvpn --genkey --secret ta.key
     mv ta.key $EASYRSA_PATH/keys/ta.key
 
-    #This will error but thats fine, the crl.pem was created (without it openvpn server crashes) 
+    #This will error but thats fine, the crl.pem was created (without it openvpn server crashes)
     set +e
     ./revoke-full client &>/dev/null || true
     set -e
@@ -216,9 +216,9 @@ tweak_network() {
     echo /etc/openvpn/bin/network_tweaks.sh >> /etc/rc.local
     echo exit 0 >> /etc/rc.local
 
-    #maybe not neccessary, but ... 
+    #maybe not neccessary, but ...
     systemctl enable rc-local.service || true
-    
+
 
 }
 
@@ -229,7 +229,7 @@ install_webserver() {
 
     mkdir -p --mode=750 /var/www/qrcode
     chown openvpn:www-data /var/www/qrcode
-    
+
     if [ -f $SERVER_PEM ]
     then
         mkdir --mode=700 /etc/lighttpd/certs
@@ -244,7 +244,7 @@ install_cron() {
     cp "$OPENVPN_PATH/bin/templates/cron.template"  /etc/cron.d/openvpn
 }
 
-    
+
 
 misc() {
     cd $OPENVPN_PATH
@@ -267,7 +267,7 @@ misc() {
     mkdir -p client-restrictions
 
     chown -R openvpn:openvpn easy-rsa/ user_passwd.csv clients.d/tmp/
-    #ahhem.  
+    #ahhem.
     chown :root /etc/openvpn/clients.d/tmp
     chmod g+rwx /etc/openvpn/clients.d/tmp
     systemctl restart openvpn
@@ -298,7 +298,7 @@ set -u
     configure_ovpn
     tweak_network
 
- 
+
 
 
     if [ -f "$SERVER_PEM" ]
@@ -307,5 +307,3 @@ set -u
     fi
     install_cron
     misc
-
-

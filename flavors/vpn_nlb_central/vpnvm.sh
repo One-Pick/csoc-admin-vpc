@@ -65,7 +65,7 @@ sudo -E su  <<  EOF
 #Install postfix and mailutils
 cd /root
 sudo apt-get update
-sudo debconf-set-selections <<< "postfix postfix/mailname string planx-pla.net"
+sudo debconf-set-selections <<< "postfix postfix/mailname string theonepicks.net"
 sudo debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 sudo apt-get install -y postfix
 sudo apt-get install mailutils -y
@@ -95,14 +95,10 @@ fi
 
 #Make changes to the install_vpn.sh script
 # copy the openvpn_management_scipts to the /root folder
-# cp   -r /home/ubuntu/cloud-automation/files/openvpn_management_scripts /root
+cp   -r /home/ubuntu/cloud-automation/files/openvpn_management_scripts /root
 
 
-export FQDN="$SERVERNAME.planx-pla.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem"; bash /root/openvpn_management_scripts/install_ovpn.sh
-
-#export FQDN="raryatestvpnv1.planx-pla.net"; export cloud="planxvpn1"; export SERVER_PEM="/root/server.pem"; bash /root/openvpn_management_scripts/install_ovpn.sh
-
-#export FQDN="raryatestvpnv1.planx-pla.net"; export cloud="planxvpn"; export EMAIL="support@datacommons.io"; export SERVER_PEM="/root/server.pem"; export VPN_SUBNET="192.168.192.0/20"; export VM_SUBNET="10.128.0.0/20"; bash install_ovpn.sh
+export FQDN="$SERVERNAME.theonepicks.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem"; bash /root/openvpn_management_scripts/install_ovpn.sh
 
 ### need to install lighttpd
 

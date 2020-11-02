@@ -1,0 +1,25 @@
+Chef/nodes/
+tf_files/*output/*
+tf_files/terraform.tfstate
+tf_files/terraform.tfstate.backup
+.terraform/
+client/*
+node_modules/
+Secrets/
+terraform
+*.lock*
+*.env
+*.bak
+*.old
+*~
+*.swp
+.DS_Store
+kube/services/fluentd/varlogs/
+kube/services/fluentd/dockerlogs/
+
+# Python related 
+*__pycache__
+*.pytest_cache
+*.cache
+*pyc
+!doc/terraform

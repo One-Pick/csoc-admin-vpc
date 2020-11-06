@@ -282,7 +282,7 @@ function install_easyrsa() {
 
   logs_helper "Installing easyRSA"
   cp -pr /usr/share/easy-rsa $EASYRSA_PATH
-  cp "$OPENVPN_PATH/bin/templates/vars.template" $VARS_PATH
+  cp "$OPENVPN_PATH/bin/templates/vars-ubuntu20.template" $VARS_PATH
 
 #  local easy_rsa_dir="$EASYRSA_PATH"
 #  local exthost="$FQDN"
@@ -342,7 +342,7 @@ build_PKI() {
   logs_helper "building pki"
     cd $EASYRSA_PATH
     source $VARS_PATH ## execute your new vars file
-    ln -s openssl-1.0.0.cnf openssl.cnf
+    ln -s openssl-easyrsa.conf openssl.cnf
     touch .rnd
     echo "This is long"
     ./clean-all  ## Setup the easy-rsa directory (Deletes all keys)

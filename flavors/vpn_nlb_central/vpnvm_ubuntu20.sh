@@ -319,7 +319,7 @@ function install_custom_scripts() {
     #This is needed or else you get : .venv/bin/activate: line 57: PS1: unbound variable
   set +u
   # ( source .venv/bin/activate; pip install pyotp pyqrcode bcrypt )
-  ( source .venv/bin/activate; pip3 install pyotp pyqrcode bcrypt )
+  ( source .venv/bin/activate; pip3 install wheel pyotp pyqrcode bcrypt )
   set -u
 
   logs_helper "custom scripts done"

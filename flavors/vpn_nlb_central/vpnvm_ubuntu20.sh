@@ -14,7 +14,7 @@ REGION=$(echo ${AVAILABILITY_ZONE::-1})
 #DOCKER_DOWNLOAD_URL="https://download.docker.com/linux/ubuntu"
 AWSLOGS_DOWNLOAD_URL="https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb"
 #TERRAFORM_DOWNLOAD_URL="https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip"
-OPENVPN_INSTALL_SCRIPT="install_ovpn_ubuntu20.sh"
+# OPENVPN_INSTALL_SCRIPT="install_ovpn_ubuntu20.sh"
 
 
 OPENVPN_PATH='/etc/openvpn'
@@ -110,7 +110,7 @@ function configure_basics() {
   # Different buckets for different CSOC vpn environments
   sed -i "s/WHICHVPN/${S3_BUCKET}\/${VPN_NLB_NAME}/" ${dest_path}/push_to_s3.sh
   sed -i "s/WHICHVPN/${S3_BUCKET}\/${VPN_NLB_NAME}/" ${dest_path}/recover_from_s3.sh
-  sed -i "s/WHICHVPN/${S3_BUCKET}\/${VPN_NLB_NAME}/" ${dest_path}/${OPENVPN_INSTALL_SCRIPT}
+  # sed -i "s/WHICHVPN/${S3_BUCKET}\/${VPN_NLB_NAME}/" ${dest_path}/${OPENVPN_INSTALL_SCRIPT}
 
   # Replace the User variable for hostname, VPN subnet and VM subnet
   #sed -i "s/SERVERNAME/${VPN_NLB_NAME}/" ${dest_path}/csoc_vpn_user_variable

@@ -28,7 +28,7 @@ COUNTRY="US"
 STATE="IL"
 CITY="Chicago"
 ORG="CTDS"
-EMAIL='support\@theonepick.net'
+EMAIL='support\@theonepicks.net'
 KEY_EXPIRE=365
 
 #OpenVPN
@@ -75,7 +75,7 @@ else
     echo $1
 fi
 
-S3_BUCKET="vpn-certs-and-files-${VPN_NLB_NAME}"
+S3_BUCKET="vpn-certs-and-files-${VPN_NLB_NAME}.${CLOUD_NAME}"
 
 function logs_helper(){
   echo -e "****************** ${1} ******************"
@@ -85,10 +85,10 @@ function install_basics() {
 
   logs_helper "Installing Basics"
   apt -y install python3-pip build-essential sipcalc wget libssl-dev curl jq apt-transport-https ca-certificates software-properties-common fail2ban libyaml-dev
-  pip3 install awscli
+  pip3 install awscli wheel
 
   # For Postfix settings on debconf
-  debconf-set-selections <<< "postfix postfix/mailname string theonepick.net"
+  debconf-set-selections <<< "postfix postfix/mailname string theonepicks.net"
   debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
   # For openVPN
   apt -y install postfix mailutils python3-virtualenv uuid-runtime lighttpd

@@ -91,13 +91,9 @@ fi
 
 # Providing all the required inputs for install_vpn.sh script
 
-# git clone git@github.com:LabAdvComp/openvpn_management_scripts.git
+# Make changes to the install_vpn.sh script copy the openvpn_management_scipts to the /root folder
 
-#Make changes to the install_vpn.sh script
-# copy the openvpn_management_scipts to the /root folder
-cp   -r /home/ubuntu/cloud-automation/files/openvpn_management_scripts /root
-
-
+cp -r /home/ubuntu/cloud-automation/files/openvpn_management_scripts /root
 export FQDN="$SERVERNAME.theonepicks.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem"; bash /root/openvpn_management_scripts/install_ovpn.sh
 
 ### need to install lighttpd

@@ -36,7 +36,7 @@ PROTO=tcp
 
 
 ###############################################################
-# get any variables we want coming from terraform variables 
+# get any variables we want coming from terraform variables
 ###############################################################
 if [ $# -eq 0 ];
 then
@@ -75,7 +75,7 @@ else
     echo $1
 fi
 
-S3_BUCKET="vpn-certs-and-files-${VPN_NLB_NAME}"
+S3_BUCKET="vpn-certs-and-files-${VPN_NLB_NAME}.${CLOUD_NAME}"
 
 function logs_helper(){
   echo -e "****************** ${1} ******************"
@@ -261,7 +261,7 @@ function install_openvpn() {
   echo "*******"
   echo "${FQDN} -- ${cloud} -- ${SERVER_PEM} -- ${VPN_SUBNET} -- ${VPN_SUBNET_BASE} -- ${VPN_SUBNET_MASK_BITS} --/ ${VM_SUBNET} -- ${VM_SUBNET_BASE} -- ${VM_SUBNET_MASK_BITS}"
   echo "*******"
-  #export FQDN="$SERVERNAME.planx-pla.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem"; 
+  #export FQDN="$SERVERNAME.planx-pla.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem";
   #bash ${dest_path}/${OPENVPN_INSTALL_SCRIPT}
 
   #cp /etc/openvpn/bin/templates/lighttpd.conf.template  /etc/lighttpd/lighttpd.conf

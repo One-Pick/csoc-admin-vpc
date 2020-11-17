@@ -424,7 +424,7 @@ install_webserver() {
   logs_helper "installing webserver"
     #Webserver used for QRCodes
 #    apt -y install lighttpd
-    cp "$OPENVPN_PATH/bin/templates/lighttpd.conf.template"  /etc/lighttpd/lighttpd.conf
+    cp "$OPENVPN_PATH/bin/templates/lighttpd-ubuntu20.conf.template"  /etc/lighttpd/lighttpd.conf
 
     mkdir -p --mode=750 /var/www/qrcode
     chown openvpn:www-data /var/www/qrcode

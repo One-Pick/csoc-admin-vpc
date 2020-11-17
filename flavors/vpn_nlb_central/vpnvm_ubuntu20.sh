@@ -262,18 +262,6 @@ function install_openvpn() {
   echo "*******"
   echo "${FQDN} -- ${cloud} -- ${SERVER_PEM} -- ${VPN_SUBNET} -- ${VPN_SUBNET_BASE} -- ${VPN_SUBNET_MASK_BITS} --/ ${VM_SUBNET} -- ${VM_SUBNET_BASE} -- ${VM_SUBNET_MASK_BITS}"
   echo "*******"
-  #export FQDN="$SERVERNAME.planx-pla.net"; export cloud="$CLOUDNAME"; export SERVER_PEM="/root/server.pem";
-  #bash ${dest_path}/${OPENVPN_INSTALL_SCRIPT}
-
-  #cp /etc/openvpn/bin/templates/lighttpd.conf.template  /etc/lighttpd/lighttpd.conf
-  #mkdir -p --mode=750 /var/www/qrcode
-  #chown openvpn:www-data /var/www/qrcode
-  #mkdir -p /etc/lighttpd/certs
-  #cp /root/server.pem /etc/lighttpd/certs/server.pem
-  #service lighttpd restart
-
-  #systemctl restart openvpn
-
   logs_helper "openVPN init complete"
 
 }
@@ -422,21 +410,19 @@ install_webserver() {
 
 
   logs_helper "installing webserver"
-    #Webserver used for QRCodes
-#    apt -y install lighttpd
-    cp "$OPENVPN_PATH/bin/templates/lighttpd-ubuntu20.conf.template"  /etc/lighttpd/lighttpd.conf
+  cp "$OPENVPN_PATH/bin/templates/lighttpd-ubuntu20.conf.template"  /etc/lighttpd/lighttpd.conf
 
-    mkdir -p --mode=750 /var/www/qrcode
-    chown openvpn:www-data /var/www/qrcode
+  mkdir -p --mode=750 /var/www/qrcode
+  chown openvpn:www-data /var/www/qrcode
 
-    if [ -f $SERVER_PEM ]
-    then
-        mkdir --mode=700 /etc/lighttpd/certs
-        cp $SERVER_PEM /etc/lighttpd/certs/server.pem
-        service lighttpd restart
-    fi
+  if [ -f $SERVER_PEM ]
+  then
+      mkdir --mode=700 /etc/lighttpd/certs
+      cp $SERVER_PEM /etc/lighttpd/certs/server.pem
+      service lighttpd restart
+  fi
 
-    logs_helper "webserver installed"
+  logs_helper "webserver installed"
 }
 
 
@@ -505,7 +491,7 @@ function main() {
   misc
 
 
-  cp /etc/openvpn/bin/templates/lighttpd.conf.template  /etc/lighttpd/lighttpd.conf
+  cp /etc/openvpn/bin/templates/lighttpd-ubuntu20.conf.template  /etc/lighttpd/lighttpd.conf
   mkdir -p --mode=750 /var/www/qrcode
   chown openvpn:www-data /var/www/qrcode
   mkdir -p /etc/lighttpd/certs

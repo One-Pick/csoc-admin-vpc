@@ -283,6 +283,7 @@ function install_easyrsa() {
   logs_helper "Installing easyRSA"
   cp -pr /usr/share/easy-rsa $EASYRSA_PATH
   cp "$OPENVPN_PATH/bin/templates/vars-ubuntu20.template" $VARS_PATH
+  cp "$OPENVPN_PATH/bin/templates/openssl-ubuntu20.cnf.template" $EASYRSA_PATH/openssl.cnf
 
 #  local easy_rsa_dir="$EASYRSA_PATH"
 #  local exthost="$FQDN"
@@ -301,7 +302,7 @@ function install_easyrsa() {
   perl -p -i -e "s|#KEY_NAME#|${cloud}-OpenVPN|" $VARS_PATH
   perl -p -i -e "s|#KEY_EXPIRE#|${KEY_EXPIRE}|" $VARS_PATH
 
-  sed -i 's/^subjectAltName/#subjectAltName/' $EASYRSA_PATH/openssl-*.cnf
+  sed -i 's/^subjectAltName/#subjectAltName/' $EASYRSA_PATH/openssl.cnf
   logs_helper "easyRSA complete"
 }
 
@@ -342,13 +343,12 @@ build_PKI() {
   logs_helper "building pki"
     cd $EASYRSA_PATH
     source $VARS_PATH ## execute your new vars file
-    ln -s openssl-easyrsa.conf openssl.cnf
-    touch .rnd
     echo "This is long"
-    ./clean-all  ## Setup the easy-rsa directory (Deletes all keys)
-    ./build-dh  ## takes a while consider backgrounding
-    ./pkitool --initca ## creates ca cert and key
-    ./pkitool --server $EXTHOST ## creates a server cert and key
+    ./easyrsa init-pki
+		./easyrsa --batch build-ca nopass
+    ./easyrsa gen-dh
+    ## creates a server cert and key
+    ./easyrsa build-server-full $EXTHOST nopass
     openvpn --genkey --secret ta.key
     mv ta.key $EASYRSA_PATH/keys/ta.key
 

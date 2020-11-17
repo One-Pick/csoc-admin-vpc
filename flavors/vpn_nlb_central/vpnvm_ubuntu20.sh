@@ -350,11 +350,11 @@ build_PKI() {
     ## creates a server cert and key
     ./easyrsa build-server-full $EXTHOST nopass
     openvpn --genkey --secret ta.key
-    mv ta.key $EASYRSA_PATH/keys/ta.key
+    mv ta.key $EASYRSA_PATH/pki/ta.key
 
     #This will error but thats fine, the crl.pem was created (without it openvpn server crashes)
     set +e
-    ./revoke-full client &>/dev/null || true
+    ./easyrsa revoke client &>/dev/null || true
     set -e
   logs_helper "pki done"
 
